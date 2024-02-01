@@ -1,20 +1,20 @@
-import { useState } from 'react';
-
-export default function AccordionItem({ faq, index }) {
-  const [isOpen, setIsOpen] = useState(false);
+export default function AccordionItem({ faq, index, currentNumber, onOpen }) {
   function handleToggle() {
-    setIsOpen((prevOpen) => !prevOpen);
+    onOpen(index);
   }
 
   return (
-    <div className={`item ${isOpen ? 'open' : ''}`} onClick={handleToggle}>
+    <div
+      className={`item ${currentNumber === index ? 'open' : ''}`}
+      onClick={handleToggle}
+    >
       <p className="number">{index < 9 ? `0${index + 1}` : index + 1}</p>
 
       <p className="title">{faq.title}</p>
 
-      <p className="icon">{isOpen ? '-' : '+'}</p>
+      <p className="icon">{currentNumber === index ? '-' : '+'}</p>
 
-      {isOpen && <div className="content-box">{faq.text}</div>}
+      {currentNumber === index && <div className="content-box">{faq.text}</div>}
     </div>
   );
 }
